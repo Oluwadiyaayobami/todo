@@ -43,7 +43,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   const login = async (email: string, password: string) => {
     setLoading(true);
     try {
-      const response = await fetch('https://eatro-hlcb.onrender.com/api/auth/register', {
+      const response = await fetch('https://eatro-hlcb.onrender.com/api/auth/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password }),
@@ -69,7 +69,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   const register = async (username: string, email: string, password: string) => {
     setLoading(true);
     try {
-      const response = await fetch('http://192.168.12.247:3000/api/auth/register', {
+      const response = await fetch('https://eatro-hlcb.onrender.com/api/auth/register', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ username, email, password }),
