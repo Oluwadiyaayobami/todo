@@ -40,30 +40,32 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   }, []);
 
   // ------------------- LOGIN ----------------------
-  const login = async (email: string, password: string) => {
-    setLoading(true);
-    try {
-      const response = await fetch('https://eatro-hlcb.onrender.com/api/auth/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, password }),
-      });
+ const login = async (email: string, password: string) => {
+  setLoading(true);
+  try {
+    const response = await fetch('https://eatro-hlcb.onrender.com/api/auth/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, password }),
+    });
 
-      if (!response.ok) throw new Error('Login failed');
+    if (!response.ok) throw new Error('Login failed');
 
-      const data = await response.json();
+    const data = await response.json();
 
-      // backend sends username, email, token
-      const userObject = { username: data.username, email: data.email };
+    // backend sends username, email, token
+    const userObject = { username: data.username, email: data.email };
 
-      setUser(userObject);
-      localStorage.setItem('user', JSON.stringify(userObject));
-      localStorage.setItem('token', data.token);
+    setUser(userObject); // update your AuthContext
+    localStorage.setItem('user', JSON.stringify(userObject));
+    localStorage.setItem('token', data.token); // store JWT
 
-    } finally {
-      setLoading(false);
-    }
-  };
+  } catch (error) {
+    console.error(error);
+  } finally {
+    setLoading(false);
+  }
+};
 
   // ------------------- REGISTER ----------------------
   const register = async (username: string, email: string, password: string) => {
